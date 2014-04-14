@@ -51,8 +51,48 @@ div.aho-clear {
     padding:0 15px 15px 0;
 }
 
-.img_wrapper img{ /*border: 1px solid #000;*/}
-
 a[rel="wordbreak"]{
 	word-break:break-all;
+}
+
+/* quote */
+.quote {
+  width: 273px;
+  background: transparent url("../assets/quote-small-repeat.png") repeat-y 0 0;
+}
+
+.quote .quoteBox-1 {
+  padding: 17px 0 0;
+  background: transparent url("../assets/quote-small-top.png") no-repeat 0 0;
+}
+
+.quote .quoteBox-1 .quoteBox-2 {
+  padding: 0 0 24px;
+  background: transparent url("../assets/quote-small-bottom.png") no-repeat 0 100%;
+}
+
+.quote p {
+  min-height: 25px;
+  font-style: italic;
+  font-size: 1.1em;
+  line-height: 1.7;
+  color: #000;
+  padding: 0 22px 1.2em;
+  margin: 0;
+}
+
+.quoteAuthor {
+  padding: 0 0 1em 22px;
+}
+
+.quoteAuthor p.name {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #000;
+  margin: 0;
+}
+
+.quoteAuthor p.details {
+  font-size: 0.9em;
+  font-style: italic;
 }

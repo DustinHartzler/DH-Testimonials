@@ -357,20 +357,18 @@ if ( !class_exists('DHTestimonails') ) {
 
 			foreach ($dhtlists as $dhtlist) {
 				echo '<div class="podcast-display">';
-				echo '<img src="'.$dhtlist->imgurl.'" width="100px" class="alignleft" style="margin:0 10px 10px 0;">';
+				echo '<img src="'.$dhtlist->imgurl.'" width="100px" class="alignleft" style="margin:0 10px 10px 0; border-radius: 50px;">';
 				echo '<a href="admin.php?page=dht_setting_page&amp;mode=dhtedit&amp;testid='.$dhtlist->testid.'">Edit</a>';
 				echo '&nbsp;|&nbsp;';
 				echo '<a href="admin.php?page=dht_setting_page&amp;mode=dhtrem&amp;testid='.$dhtlist->testid.'" onClick="return confirm(\'Delete this testimonial?\')">Delete</a>';
 				echo '<br>';
-				echo '<strong>Show Name: </strong>';
+				echo '<strong>Name: </strong>';
 				echo stripslashes($dhtlist->show_name);
 					if ($dhtlist->host_name != '') {
-						echo '<br><strong>Host Name: </strong>'.stripslashes($dhtlist->host_name).'';
+						echo '<br><strong>Company Name: </strong>'.stripslashes($dhtlist->host_name).'';
 						if ($dhtlist->show_url != '') {
-							echo '<br><strong>Show URL: </strong> <a href="'.$dhtlist->show_url.'" rel="wordbreak">'.stripslashes($dhtlist->show_url).'</a> ';
-							if ($dhtlist->testimonial !=''){
+							echo '<br><strong>Company URL: </strong> <a href="'.$dhtlist->show_url.'" rel="wordbreak">'.stripslashes($dhtlist->show_url).'</a> ';
 							echo '<br><strong>Testimonial: </strong>'.stripslashes($dhtlist->testimonial).'';	
-							}	
 						}
 					}
 				echo '</div>'; 

@@ -1,4 +1,4 @@
-=== As Heard On ===
+=== DH Testimonials ===
 Contributors: DustinHartzler
 Donate Link: http://YourWebsiteEngineer.com/donate
 Tags: WordPress, widget, pages, podcasts, as heard on

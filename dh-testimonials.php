@@ -60,13 +60,8 @@ if ( !class_exists('DHTestimonails') ) {
 			wp_enqueue_style('style_css', plugins_url('/dh-testimonials/css/as-heard-on-style.css') );
 			if ( ! is_admin() ) {
 				wp_enqueue_script( 'display', plugins_url('/as-heard-on/js/display.js') ,array('jquery') ); 
-				
 				wp_enqueue_script( 'jquery' );
-			} else {
-			  	wp_enqueue_style('slider_css', plugins_url('/as-heard-on/css/simple-slider.css') );
-			  	wp_enqueue_style('volume_css', plugins_url('/as-heard-on/css/simple-slider-volume.css') );
-			  	wp_enqueue_script( 'slider', plugins_url('/as-heard-on/js/simple-slider.js') ,array('jquery') ); 
-	 		}
+			} 
 		} 
 	
 // +---------------------------------------------------------------------------+
@@ -74,7 +69,6 @@ if ( !class_exists('DHTestimonails') ) {
 // +---------------------------------------------------------------------------+
 
 		function addpages() { 
-			// Create top-level menu and appropriate sub-level menus:
 			add_menu_page('Testimonials', 'Testimonials', 'manage_options', 'dht_setting_page', array($this, 'settings_pages'), 'dashicons-testimonial');
 		}
 
@@ -114,17 +108,15 @@ if ( !class_exists('DHTestimonails') ) {
 				</style>
 
 				<?php
-				$active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'add_new_testimonial';
+				$active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'dht_add_new_testimonial';
 				?>
 
 				<h2 class="nav-tab-wrapper">
-					<a href="admin.php?page=setting_page&tab=add_new_testimonial" class="nav-tab <?php echo $active_tab == 'add_new_testimonial' ? 'nav-tab-active' : ''; ?>">Testimonials</a>
-					<a href="admin.php?page=setting_page&tab=dht_widget_options" class="nav-tab <?php echo $active_tab == 'dht_widget_options' ? 'nav-tab-active' : ''; ?>">Widget Options</a>
-					<a href="admin.php?page=setting_page&tab=dht_full_page_options" class="nav-tab <?php echo $active_tab == 'dht_full_page_options' ? 'nav-tab-active' : ''; ?>">Full Page Options</a>
+					<a href="admin.php?page=setting_page&tab=dht_add_new_testimonial" class="nav-tab <?php echo $active_tab == 'dht_add_new_testimonial' ? 'nav-tab-active' : ''; ?>">Testimonials</a>
 				</h2>
 
 				<?php
-				if ( $active_tab == 'add_new_testimonial' ) {  
+				if ( $active_tab == 'dht_add_new_testimonial' ) {  
 					$this->adminpage();
 				} elseif ( $active_tab == 'dht_widget_options' ) { 
 					$this->widget_options();
@@ -134,6 +126,7 @@ if ( !class_exists('DHTestimonails') ) {
 
 				?> </div> <?php
 		}
+
 // +---------------------------------------------------------------------------+
 // | Add New Testimonail                                                       |
 // +---------------------------------------------------------------------------+
@@ -142,8 +135,7 @@ if ( !class_exists('DHTestimonails') ) {
 			<div class="wrap">
 				<h2>Add New Testimonial</h2>
 				<ul>
-				<li>If you want to include this podcast image in the sidebar, you must have content in the &quot;Show URL&quot; field.</li>
-				<li>The text in the &quot;Podcast Excerpt&quot; field will only appear on the summary page.</li>
+				<li>If you want the testimonial to appear, you must include &quot;Testimonial&quot; field.</li>
 				</ul>
 				<br />
 				<div id="ppg-form">
@@ -164,8 +156,8 @@ if ( !class_exists('DHTestimonails') ) {
 							</tr>
 
 							<tr valign="top">
-								<td><label for="excerpt">Testimonial:</label></td>
-								<td><textarea name="excerpt" cols="45" rows="7"></textarea></td>
+								<td><label for="testimonial">Testimonial:</label></td>
+								<td><textarea name="testimonial" cols="45" rows="7"></textarea></td>
 							</tr>
 
 							<tr valign="top">
@@ -207,19 +199,18 @@ if ( !class_exists('DHTestimonails') ) {
 			$host_name 	= sanitize_text_field( $_POST['host_name'] );
 			$show_url 	= sanitize_text_field( $_POST['show_url'] );
 			$imgurl 	= sanitize_text_field( $_POST['imgurl'] );
-			$episode 	= sanitize_text_field( $_POST['episode'] );
-			$excerpt 	= wp_kses( $_POST['excerpt'], $allowed_html );
+			$testimonial 	= wp_kses( $_POST['testimonial'], $allowed_html );
 			$storder 	= sanitize_text_field( $_POST['storder'] );
 			
 			$insert = $wpdb->prepare( "INSERT INTO " . $table_name .
-				" (show_name,host_name,show_url,imgurl,episode,excerpt,storder) " .
+				" (show_name,host_name,show_url,imgurl,episode,testimonial,storder) " .
 				"VALUES ('%s','%s','%s','%s','%d','%s','%s')",
 				$show_name,
 				$host_name,
 				$show_url,
 				$imgurl,
 				$episode,
-				$excerpt,
+				$testimonial,
 				$storder
 			);
 			
@@ -249,7 +240,7 @@ if ( !class_exists('DHTestimonails') ) {
 				show_url text,
 				episode text,
 				imgurl text,
-				excerpt text,
+				testimonial text,
 				storder INT( 5 ) NOT NULL,
 				PRIMARY KEY ( `testid` )
 				) ".$charset_collate.";";
@@ -298,7 +289,7 @@ if ( !class_exists('DHTestimonails') ) {
 			$show_url 	= sanitize_text_field( $_POST['show_url'] );
 			$imgurl 	= sanitize_text_field( $_POST['imgurl'] );
 			$episode 	= sanitize_text_field( $_POST['episode'] );
-			$excerpt 	= wp_kses( $_POST['excerpt'], $allowed_html );
+			$testimonial 	= wp_kses( $_POST['testimonial'], $allowed_html );
 			$storder 	= sanitize_text_field( $_POST['storder'] );
 			
 			$wpdb->query("UPDATE " . $table_name .
@@ -307,7 +298,7 @@ if ( !class_exists('DHTestimonails') ) {
 			" show_url = '$show_url', ".
 			" imgurl = '$imgurl', ".
 			" episode = '$episode', ".
-			" excerpt = '$excerpt', ".
+			" testimonial = '$testimonial', ".
 			" storder = '$storder' ".
 			" WHERE testid = '$testid'");
 		}
@@ -331,11 +322,11 @@ if ( !class_exists('DHTestimonails') ) {
 			<?php
 				if (isset($_POST['addnew'])) {
 					$this->insertnew();
-					?><div id="message" class="updated fade"><p><strong><?php _e('Podcast Added'); ?>.</strong></p></div><?php
+					?><div id="message" class="updated fade"><p><strong><?php _e('Testimonial Added'); ?>.</strong></p></div><?php
 				}
 				if ($_REQUEST['mode']=='dhtrem') {
 					$this->removetst($_REQUEST['testid']);
-					?><div id="message" class="updated fade"><p><strong><?php _e('Podcast Deleted'); ?>.</strong></p></div><?php
+					?><div id="message" class="updated fade"><p><strong><?php _e('Testimonial Deleted'); ?>.</strong></p></div><?php
 				}
 				if ($_REQUEST['mode']=='dhtedit') {
 					$this->dht_edit($_REQUEST['testid']);
@@ -343,24 +334,13 @@ if ( !class_exists('DHTestimonails') ) {
 				}
 				if (isset($_REQUEST['editdo'])) {
 					$this->dht_editdo($_REQUEST['testid']);
-					?><div id="message" class="updated fade"><p><strong><?php _e('Podcast Updated'); ?>.</strong></p></div><?php
+					?><div id="message" class="updated fade"><p><strong><?php _e('Testimonial Updated'); ?>.</strong></p></div><?php
 				}
 					$this->showlist(); // show podcasts
 				?>
 			</div>
 			<div class="wrap">
 				<?php $this->newform(); // show form to add new podcast ?>
-			</div>
-			<div class="wrap">
-			<?php $yearnow = date('Y');
-			if($yearnow == "2013") {
-			    $yearcright = "";
-			} else { 
-			    $yearcright = "2013-";
-			}
-			?>
-			<p>As Heard On Plugin is &copy; Copyright <?php echo("".$yearcright."".date('Y').""); ?>, <a href="http://www.yourwebsiteengineer.com/" target="_blank">Dustin Hartzler</a> and distributed under the <a href="http://www.fsf.org/licensing/licenses/quick-guide-gplv3.html" target="_blank">GNU General Public License</a>. 
-			If you find this plugin useful, please consider a <a href="http://#" target="_blank">donation</a>.</p>
 			</div>
 <?php }
 
@@ -388,8 +368,8 @@ if ( !class_exists('DHTestimonails') ) {
 						echo '<br><strong>Host Name: </strong>'.stripslashes($dhtlist->host_name).'';
 						if ($dhtlist->show_url != '') {
 							echo '<br><strong>Show URL: </strong> <a href="'.$dhtlist->show_url.'" rel="wordbreak">'.stripslashes($dhtlist->show_url).'</a> ';
-							if ($dhtlist->excerpt !=''){
-							echo '<br><strong>Testimonial: </strong>'.stripslashes($dhtlist->excerpt).'';	
+							if ($dhtlist->testimonial !=''){
+							echo '<br><strong>Testimonial: </strong>'.stripslashes($dhtlist->testimonial).'';	
 							}	
 						}
 					}
@@ -403,7 +383,7 @@ if ( !class_exists('DHTestimonails') ) {
 			global $wpdb;
 			$table_name = $wpdb->prefix . "dht";
 			
-			$getdht = $wpdb->get_row("SELECT testid, show_name, host_name, show_url, imgurl, episode, excerpt, storder FROM $table_name WHERE testid = $testid"); ?>
+			$getdht = $wpdb->get_row("SELECT testid, show_name, host_name, show_url, imgurl, episode, testimonial, storder FROM $table_name WHERE testid = $testid"); ?>
 			
 			<h3>Edit Podcast</h3
 			<div id="ppg-form">
@@ -434,8 +414,8 @@ if ( !class_exists('DHTestimonails') ) {
 				 		</tr>
 
 				 		<tr valign="top">
-				 			<td><label for="excerpt">Testimonial:</label></td>
-				  			<td><textarea name="excerpt" cols="45" rows="7"><?php echo stripslashes($getdht->excerpt) ?></textarea></td>
+				 			<td><label for="testimonial">Testimonial:</label></td>
+				  			<td><textarea name="testimonial" cols="45" rows="7"><?php echo stripslashes($getdht->testimonial) ?></textarea></td>
 				  		</tr>
 
 				  		<tr valign="top">
@@ -461,8 +441,8 @@ if ( !class_exists('DHTestimonails') ) {
 							if ($getdht->episode !=''){
 							echo '<br><strong>Episode: </strong>'.stripslashes($getdht->episode).'';	
 							}	
-							if ($getdht->excerpt !=''){
-							echo '<br><strong>Show Recap: </strong>'.stripslashes($getdht->excerpt).'';	
+							if ($getdht->testimonial !=''){
+							echo '<br><strong>Show Recap: </strong>'.stripslashes($getdht->testimonial).'';	
 							}
 						}
 					}
@@ -563,7 +543,7 @@ if(class_exists('DHTestimonails')) {
 			$table_name = $wpdb->prefix . "dht";
 				$setlimit = 1;
 
-			$randone = $wpdb->get_results("SELECT show_name, show_url, episode, excerpt, imgurl FROM $table_name WHERE show_url !='' order by RAND() LIMIT $setlimit");
+			$randone = $wpdb->get_results("SELECT show_name, show_url, episode, testimonial, imgurl FROM $table_name WHERE show_url !='' order by RAND() LIMIT $setlimit");
 
 			echo '<div id="quote-3">';
 			
@@ -571,7 +551,7 @@ if(class_exists('DHTestimonails')) {
 				echo '<div class="quote">';
 				echo '<div class="quoteBox-1">';
 				echo '<div class="quoteBox-2">';
-				echo '<p>'.$randone2->excerpt.'</p>';
+				echo '<p>'.$randone2->testimonial.'</p>';
 				echo '</div></div></div>';
 				echo '<a href="'.nl2br(stripslashes($randone2->show_url)).'" target="_blank"><img style="border-radius: 35px;" title="'.$randone2->show_name.'"src="'.$randone2->imgurl.'" width="'.get_option('image_width').'" height="'.get_option('image_height').'" style="margin-right:10px;"></a>';				
 				

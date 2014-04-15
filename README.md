@@ -1,4 +1,4 @@
-# As Heard On #
+# DH Testimonials #
 **Contributors:** DustinHartzler
   
 **Donate Link:** http://YourWebsiteEngineer.com/donate

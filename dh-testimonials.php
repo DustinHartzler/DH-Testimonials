@@ -366,10 +366,8 @@ if ( !class_exists('DHTestimonails') ) {
 				echo stripslashes($dhtlist->show_name);
 					if ($dhtlist->host_name != '') {
 						echo '<br><strong>Company Name: </strong>'.stripslashes($dhtlist->host_name).'';
-						if ($dhtlist->show_url != '') {
-							echo '<br><strong>Company URL: </strong> <a href="'.$dhtlist->show_url.'" rel="wordbreak">'.stripslashes($dhtlist->show_url).'</a> ';
-							echo '<br><strong>Testimonial: </strong>'.stripslashes($dhtlist->testimonial).'';	
-						}
+						echo '<br><strong>Company URL: </strong> <a href="'.$dhtlist->show_url.'" rel="wordbreak">'.stripslashes($dhtlist->show_url).'</a> ';
+						echo '<br><strong>Testimonial: </strong>'.stripslashes($dhtlist->testimonial).'';	
 					}
 				echo '</div>'; 
 			}
@@ -388,16 +386,16 @@ if ( !class_exists('DHTestimonails') ) {
 				<?php echo '<form name="edittst" method="post" action="admin.php?page=dh_setting_page">';?>
 					<table cellpadding="2" cellspacing="2">
 						<tr valign="top">	
-							<td><label for="show_name">Show Name:</label></td>
+							<td><label for="show_name">Name:</label></td>
 				  			<?php echo '<td><input name="show_name" type="text" size="45" value="'. stripslashes($getdht->show_name).'"></td>';
 				  		?></tr>
 				  		<tr valign="top">
-							<td><label for="host_name">Host Name:</label></td>
+							<td><label for="host_name">Company Name:</label></td>
 				  			<td><input name="host_name" type="text" size="45" value="<?php echo stripslashes($getdht->host_name)?>"></td>
 						</tr>
 
 						<tr valign="top">
-							<td><label for="show_url">Show URL:</label></td>
+							<td><label for="show_url">Company URL:</label></td>
 				 			<td><input name="show_url" type="text" size="45" value="<?php echo $getdht->show_url ?>"></td>
 				 		</tr>
 				
@@ -405,11 +403,6 @@ if ( !class_exists('DHTestimonails') ) {
 							<td><label for="imgurl">Image URL:</label></td>
 							<td><input name="imgurl" type="text" size="45" value="<?php echo $getdht->imgurl ?>"><input class="media-upload-button button" type="button" value="Upload Image" /></td>
 						</tr>
-						
-						<tr valign="top">
-							<td><label for="episode">Episode:</label></td>
-				 			<td><input name="episode" type="text" size="2" value="<?php echo $getdht->episode ?>"></td>
-				 		</tr>
 
 				 		<tr valign="top">
 				 			<td><label for="testimonial">Testimonial:</label></td>
@@ -436,13 +429,8 @@ if ( !class_exists('DHTestimonails') ) {
 						echo '<br><strong>Host Name: </strong>'.stripslashes($getdht->host_name).'';
 						if ($getdht->show_url != '') {
 							echo '<br><strong>Show URL: </strong> <a href="'.$getdht->show_url.'">'.stripslashes($getdht->show_url).'</a> ';
-							if ($getdht->episode !=''){
 							echo '<br><strong>Episode: </strong>'.stripslashes($getdht->episode).'';	
-							}	
-							if ($getdht->testimonial !=''){
-							echo '<br><strong>Show Recap: </strong>'.stripslashes($getdht->testimonial).'';	
-							}
-						}
+							echo '<br><strong>Testimonial: </strong>'.stripslashes($getdht->testimonial).'';	
 					}
 				echo '</div>'; 
 			echo '</form>';

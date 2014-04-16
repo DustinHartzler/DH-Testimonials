@@ -427,10 +427,9 @@ if ( !class_exists('DHTestimonails') ) {
 				echo stripslashes($getdht->show_name);
 					if ($getdht->host_name != '') {
 						echo '<br><strong>Host Name: </strong>'.stripslashes($getdht->host_name).'';
-						if ($getdht->show_url != '') {
-							echo '<br><strong>Show URL: </strong> <a href="'.$getdht->show_url.'">'.stripslashes($getdht->show_url).'</a> ';
-							echo '<br><strong>Episode: </strong>'.stripslashes($getdht->episode).'';	
-							echo '<br><strong>Testimonial: </strong>'.stripslashes($getdht->testimonial).'';	
+						echo '<br><strong>Show URL: </strong> <a href="'.$getdht->show_url.'">'.stripslashes($getdht->show_url).'</a> ';
+						echo '<br><strong>Episode: </strong>'.stripslashes($getdht->episode).'';	
+						echo '<br><strong>Testimonial: </strong>'.stripslashes($getdht->testimonial).'';	
 					}
 				echo '</div>'; 
 			echo '</form>';
